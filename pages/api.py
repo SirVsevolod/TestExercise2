@@ -1,16 +1,19 @@
 import requests
 
-def check():
-    response = requests.get("https://www.lenvendo.ru/api/js-test-task/?search=Alcatel&sort_field=name")
+def check_name(link):
+    response = requests.get(link)
     products = response.json()['products']
     res = []
-    list_of_name = []
-    res2 = []
     for pr in products:
-        list_of_name.append(pr['name'])
-        res.append('Alcatras' in pr['name'])
-
+        res.append("Alcatel" in pr['name'])
     return res
 
-def js_test_task(search, sort_field):
-    response = requests.get(search)
+
+def check_sort(link):
+    response = requests.get(link)
+    products = response.json()['products']
+    res = []
+    for pr in products:
+        res.append(pr['name'])
+    copy_res = res.copy()
+    return copy_res == res.sort()
